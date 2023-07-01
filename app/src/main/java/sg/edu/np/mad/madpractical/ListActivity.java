@@ -17,33 +17,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+
+
 public class ListActivity extends AppCompatActivity {
+
+    static ArrayList<User> usL;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_list);
-
+        if (usL == null){
+            usL = createUSL();
+        }
     }
 
     @Override
     protected void onStart(){
         super.onStart();
 
-        // randomise
-        ArrayList<User> usL = new ArrayList<>();
-        for (int i = 0; i<=20; i++){
-            User u = new User();
-            u.name = "Name " + randomOTP();
-            u.description = "Description: " + randomOTP();
-            u.followed = randomBool();
-            usL.add(u);
-        }
-
         // set up recycler view
 
         RecyclerView recyclerView = findViewById(R.id.recycler);
-        Adapter adapter = new Adapter(usL);
+        Adapter adapter = new Adapter(this,usL);
         LinearLayoutManager mlayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mlayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -100,5 +97,17 @@ public class ListActivity extends AppCompatActivity {
         Random ran = new Random();
         boolean myRan = ran.nextBoolean();
         return myRan;
+    }
+
+    public ArrayList<User> createUSL(){
+        ArrayList<User> usL = new ArrayList<>();
+        for (int i = 0; i<=20; i++){
+            User u = new User();
+            u.name = "Name " + randomOTP();
+            u.description = "Description: " + randomOTP();
+            u.followed = randomBool();
+            usL.add(u);
+        }
+        return usL;
     }
 }

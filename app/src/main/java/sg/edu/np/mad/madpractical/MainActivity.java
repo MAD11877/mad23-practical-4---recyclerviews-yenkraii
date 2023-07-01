@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,15 +19,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_main);
 
+
+
     }
 
     @Override
     protected void onStart(){
         super.onStart();
 
-        // set up user
-        User user = new User();
-        user.followed = false;
+        Intent rec = getIntent();
+        User user = (User) rec.getSerializableExtra("user");
 
         // attach listener to the button
         Button but = findViewById(R.id.button);
@@ -62,17 +65,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // changing the text value
-        Intent rec = getIntent();
-        Integer i = rec.getIntExtra("value",0);
-        String str;
-        if (i == 0){
-            str = "";
-        }
-        else{
-            str = i.toString();
-        }
         TextView title = findViewById(R.id.textView);
-        title.setText("MAD " + str);
+        TextView descr = findViewById(R.id.textView2);
+        title.setText(user.name);
+        descr.setText(user.description);
 
     }
 

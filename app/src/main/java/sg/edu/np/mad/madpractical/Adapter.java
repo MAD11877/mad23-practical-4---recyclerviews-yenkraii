@@ -56,15 +56,14 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle("Profile");
                 builder.setMessage("MADness").setCancelable(true);
-                Integer i = 0;
                 builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog();
+                        //AlertDialog();
                         //Integer i = randomOTP();
                         // go back to main activity
                         Intent intent = new Intent(mContext, MainActivity.class);
-                        //intent.putExtra("value",i);
+                        intent.putExtra("user", s);
                         mContext.startActivity(intent);
                         dialog.cancel();
                     }
