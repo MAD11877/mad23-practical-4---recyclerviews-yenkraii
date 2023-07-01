@@ -10,7 +10,11 @@ import android.widget.ImageView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ListActivity extends AppCompatActivity {
@@ -26,6 +30,25 @@ public class ListActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
 
+        // randomise
+        ArrayList<User> usL = new ArrayList<>();
+        for (int i = 0; i<=20; i++){
+            User u = new User();
+            u.name = "Name " + randomOTP();
+            u.description = "Description: " + randomOTP();
+            u.followed = randomBool();
+            usL.add(u);
+        }
+
+        // set up recycler view
+
+        RecyclerView recyclerView = findViewById(R.id.recycler);
+        Adapter adapter = new Adapter(usL);
+        LinearLayoutManager mlayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mlayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        /*
         // image
         ImageView im = findViewById(R.id.alert);
         im.setOnClickListener(new View.OnClickListener() {
@@ -34,9 +57,9 @@ public class ListActivity extends AppCompatActivity {
                 AlertDialog();
             }
         });
-
+        */
     }
-
+/*
     private void AlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Profile");
@@ -63,9 +86,19 @@ public class ListActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+
+ */
+
     private int randomOTP(){
         Random ran = new Random();
         int myRan = ran.nextInt(1000000);
+        return myRan;
+    }
+
+    private boolean randomBool(){
+        Random ran = new Random();
+        boolean myRan = ran.nextBoolean();
         return myRan;
     }
 }
